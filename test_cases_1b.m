@@ -87,7 +87,7 @@ classdef test_cases_1b < matlab.unittest.TestCase
             testCase.verifyEqual(exitflag,0, RelTol = 1e-5);
         end
 
-%         function Degen(testCase)
+%        function Degen(testCase)
 %             m = 3;
 %             n = 5;
 %             
@@ -107,5 +107,27 @@ classdef test_cases_1b < matlab.unittest.TestCase
 %             testCase.verifyEqual(ind,[3,5].', RelTol = 1e-5);
 %             testCase.verifyEqual(exitflag,0, RelTol = 1e-5);
 %         end
+
+        function another_degenerate(testCase)
+            m = 4;
+            n = 6;
+            
+            A = [0.08 0.06 1 0 0 0;
+                 0.06 0.06 0 1 0 0;
+                 0 1 0 0 1 0;
+                 2 1 0 0 0 1];
+            
+            c = [-2 -1.25 0 0 0 0]';
+            
+            b = [12 9.6 120 280]';
+            
+            [z,x,pi,ind,exitflag] = fullsimplex(A,b,c,m,n);
+            
+            testCase.verifyEqual(z,-290, RelTol = 1e-5);
+            testCase.verifyEqual(x,[40, 0, 80, 120].', RelTol = 1e-5);
+            testCase.verifyEqual(pi,[-12.5, 0, 0, -0.5].', RelTol = 1e-5);
+            testCase.verifyEqual(ind,[2,4,5,1].', RelTol = 1e-5);
+            testCase.verifyEqual(exitflag,0, RelTol = 1e-5);
+        end
     end
 end
